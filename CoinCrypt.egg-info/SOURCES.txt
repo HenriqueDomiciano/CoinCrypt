@@ -1,0 +1,10 @@
+LICENSE
+README.md
+setup.py
+CoinCrypt/Coincrypt.py
+CoinCrypt/__init__.py
+CoinCrypt.egg-info/PKG-INFO
+CoinCrypt.egg-info/SOURCES.txt
+CoinCrypt.egg-info/dependency_links.txt
+CoinCrypt.egg-info/requires.txt
+CoinCrypt.egg-info/top_level.txt

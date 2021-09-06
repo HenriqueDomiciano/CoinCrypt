@@ -29,7 +29,12 @@ class coincrypt:
                 max_search :: int -- the maximun number of cryptos the method will search
 
         """
-        symbol = symbol.split(',')
+        if isinstance(symbol,str):
+            symbol = symbol.split(',')
+        elif isinstance(symbol,list):
+            symbol = symbol
+        else:
+            return f'Sorry but {symbol.type()} is not allowed '
         coins= []
         parameters = {
             'start' : 1,
@@ -75,7 +80,12 @@ class coincrypt:
         Parameters:
             name :: str -- The name of the coin
         """
-        name = name.split(',')
+        if isinstance(name,str):
+            name = name.split(',')
+        elif isinstance(name,list):
+            name = name
+        else:
+            return f'Sorry but {name.type()} is not allowed '
         coins = []
         url = self.url + 'cryptocurrency/listings/latest'
         resposta = self.session.get(url)
@@ -166,7 +176,7 @@ class coincrypt:
         resposta = self.session.get(url,params=parameters)
         return json.loads(resposta.text)['data']
 
-    def convert_crypto(self,converte_from = 'BTC',convert_to = 'USD',amount = 1):
+    def convert_crypto(self,convert_from = 'BTC',convert_to = 'USD',amount = 1):
         
         """
         This method converts criptos(BTC,ETH,ADA...) in their value in flat coins such as BRL,EUR,USD,GBP...
@@ -177,9 +187,14 @@ class coincrypt:
         """
         
         values = []
-        coins = convert_to.split(',')
+        if isinstance(convert_to,str):
+            coins = convert_to = convert_to.split(',')
+        elif isinstance(convert_to,list):
+            coins = convert_to = convert_to
+        else:
+            return f'Sorry but {convert_to.type()} is not allowed '
         parameters = {
-            'symbol': converte_from,
+            'symbol': convert_from,
             'amount' : amount,
             'convert': convert_to
         }
@@ -233,7 +248,7 @@ class coincrypt:
         resposta = self.session.get(url,params=parameters)
         return dict(json.loads(resposta.text)['data'])
     
-    def get_variaton(value,older_value):
+    def get_variaton(self,value,older_value):
         return str((older_value-value)/value) + ' %'
 
     def get_data_by_string(self,slug =None,symbol = None ,max_search =100):
@@ -245,16 +260,25 @@ class coincrypt:
         resposta = self.session.get(url,params=parameters)
         k = json.loads(resposta.text)['data']
         coins_temp = []
-        if slug is None and (not(symbol is None)):
-                
-            symbol = symbol.split(',')
+        if slug is None and (not(symbol is None)):    
+            if isinstance(symbol,str):
+                symbol = symbol.split(',')
+            elif isinstance(symbol,list):
+                symbol = symbol
+            else:
+                return f'Sorry but {symbol.type()} is not allowed '
             for i in range(len(k)):
                 if k[i]['symbol'] in symbol:
                     coins_temp.append(k[i])
             return coins_temp
 
         elif (symbol is None) and (not(slug) is None):
-            slug = slug.split(',')
+            if isinstance(symbol,str):
+                slug = slug.split(',')
+            elif isinstance(symbol,list):
+                slug = slug
+            else:
+                return f'Sorry but {slug.type()} is not allowed '
             for i in range(len(k)):
                 if k[i]['slug'] in slug:
                     coins_temp.append(k[i])
@@ -279,14 +303,24 @@ class coincrypt:
             
             if slug is None and (not(symbol is None)):    
                 prices = self.get_price_by_symbol(symbol=symbol,max_search=max_search)
-                symbols = symbol.split(',')
+                if isinstance(symbol,str):
+                    symbols = symbol.split(',')
+                elif isinstance(symbol,list):
+                    symbols = symbol
+                else:
+                    return f'Sorry but {symbol.type()} is not allowed '
                 for i in symbols:
                     amounts.append([i,amount/prices[i]])
                 return dict(amounts)
 
             elif (symbol is None) and (not(slug is None)):
-                prices = self.get_price_by_name(slug=slug,max_search=max_search)
-                slugs = slug.split(',')
+                prices = self.get_price_by_name(name=slug)
+                if isinstance(slug,str):
+                    slugs = symbol.split(',')
+                elif isinstance(slug,list):
+                    slugs = slug
+                else:
+                    return f'Sorry but {slug.type()} is not allowed '
                 for i in slugs:
                     amounts.append([i,amount/prices[i]])
                 return dict(amounts)
@@ -296,9 +330,14 @@ class coincrypt:
         else:
             
             if slug is None and (not(symbol is None)):    
-                symbols = symbol.split(',')
+                if isinstance(symbol,str):
+                    symbols = symbol.split(',')
+                elif isinstance(symbol,list):
+                    symbols = symbol
+                else:
+                    return f'Sorry but {symbol.type()} is not allowed '
                 for i in symbols:
-                    price = self.convert_crypto(convert_to=fiat_coin,converte_from=i)
+                    price = self.convert_crypto(convert_to=fiat_coin,convert_from=i)
                     amounts.append([i,amount/price[fiat_coin]])
                 return dict(amounts)
             else :

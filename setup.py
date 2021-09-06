@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.2.9.6'
+VERSION = '0.0.2.10.0'
 DESCRIPTION = 'Simple methods for working with coinmarketcap API'
 LONG_DESCRIPTION = 'Search for actual Price of multiple coins, make conversions, get coins by price, volume and change'
 

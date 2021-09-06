@@ -2,7 +2,7 @@
 
 An code to handle basic methods in the coin market cap API.
 To use this code initialize an class Coincrypt
-
+[Link to Github](https://github.com/HenriqueDomiciano/CoinCrypt)
 ## Getting Started 
 
 Simple Code to connect the API :
@@ -15,6 +15,7 @@ cr = cp.coincrypt('API_KEY')
 **get_price_by_symbol :** 
 
 This method is made for getting the actual price(USD) given an symbol ex (BTC,ETE,LTC...)
+Obs - in version >=2.10.0 you can also use list of strings
 - Parameters:
     - symbol :: str -- The symbol of the crypto (for multiple prices use , inside the string )
     - max_search :: int -- the maximun number of cryptos the method will search
@@ -106,6 +107,7 @@ cr.get_historical('BTC')# returns historical features of bitcoin in json Object
 **convert_crypto :** 
 
 This method converts criptos(BTC,ETH,ADA...) in their value in fiat coins such as BRL,EUR,USD,GBP...
+Obs - in version >=2.10.0 you can also use list of strings in convert_to
 - Parameters : 
     - converte_from :: str -- The symbol of the cryptocurrency you want to be converted (can use multiple entrance depending on your api plan) 
     - convert_to :: str -- The symbol of the flat coin you want to be converted to 
@@ -147,6 +149,7 @@ cr.get_FCAS_latest('BTC')# returns json Object with the FCAS data
 **get_data_by_string:** 
 
 Get all the data avaliable by the API given an string of symbols or names of coins
+Obs - in version >=2.10.0 you can also use list of strings 
 - Parameters :
     - slug :: str -- The name of the crypto you want to have tha data information
     - symbol :: str -- The symbol of the crypto you want to have the data information
@@ -159,7 +162,8 @@ cr.get_data_by_string(symbol = 'BTC,ETH,BNB')
 ```
 **how_much_can_buy**
 
-Returns an dict with the number of coins such amount of fiat coin can buy 
+Returns an dict with the number of coins such amount of fiat coin can buy
+Obs - in version >=2.10.0 you can also use list of strings
 - Parameters: 
     - slug :: str -- The name of the crypto you want to 'buy'
     - symbol :: str -- the symbol of the crypto you want to 'buy'
